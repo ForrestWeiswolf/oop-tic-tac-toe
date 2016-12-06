@@ -1,8 +1,10 @@
 class Board
-	def initialize(grid = [], dim = 3)
+	def initialize(grid=[], dim = 3)
 		@grid = grid
-		dim.times {@grid.push(Array.new(dim))} if @grid == []
-		@dim = grid.length
+		if @grid == []
+			dim.times {@grid.push(Array.new(dim))}
+		end
+		@dim = @grid.length
 	end
 
 	def won?
@@ -18,7 +20,7 @@ class Board
 		return result
 	end
 
-	def to_s
+	def show
 		result = ""
 		@grid.each do |row|
 			result = result + row.inspect + "\n"
@@ -26,9 +28,8 @@ class Board
 		return result
 	end
  
-	def occupied?(x, y)
-		return true if @grid[x][y]
-		false
+	def play(x, y, token)
+		@grid[x][y] = token unless @grid[x][y]
 	end
 
 	private
@@ -40,15 +41,3 @@ class Board
 		end
 	end
 end
-
-b1 = Board.new ([["X", nil, nil], [nil, nil, nil], ["O", "O", nil]])
-b2 = Board.new ([["X", nil, "O"], ["X", nil, nil], ["X", "O", nil]])
-b3 = Board.new ([["O", "O", "O"], [nil, nil, nil], ["O", "O", nil]])
-b4 = Board.new ([["O", "X", "X"], ["X", "O", nil], ["X", "O", "O"]])
-b5 = Board.new ([["O", "X", "X"], ["X", "X", nil], ["X", nil, "O"]])
-
-puts b1.won?
-puts b2.won?
-puts b3.won?
-puts b4.won?
-puts b5.won?
