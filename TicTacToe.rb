@@ -6,10 +6,12 @@ class TicTacToe
 		@board = board
 		@players = players
 
-		return @board.won? if @board.won?
-		players.each do |player|
-			self.turn(player)
+		until @board.won? do
+			players.each do |player|
+				self.turn(player)
+			end
 		end
+		puts "Player #{@board.won?} wins!"
 	end
 
 	def turn(player)
