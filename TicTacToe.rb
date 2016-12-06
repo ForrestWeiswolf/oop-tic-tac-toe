@@ -9,6 +9,7 @@ class TicTacToe
 		until @board.won? do
 			players.each do |player|
 				self.turn(player)
+				break if @board.won?
 			end
 		end
 		puts "Player #{@board.won?} wins!"

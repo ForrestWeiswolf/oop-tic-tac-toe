@@ -28,8 +28,14 @@ class Board
 		return result
 	end
  
-	def play(x, y, token)
-		@grid[x][y] = token unless @grid[x][y]
+	def play(x, y, token) 
+		# if x > @dim-1 | y > @dim-1 | x < 0 | y < 0
+		# 	return "That's not a space on the board."
+		# elsif @grid[x][y]
+		# 	return "That space is already filled."
+		# else
+			@grid[x][y] = token
+		# end
 	end
 
 	private
@@ -40,4 +46,25 @@ class Board
 			false
 		end
 	end
+end
+
+
+def board_tests
+	b1 = Board.new([], 4)
+	b2 = Board.new ([["X", nil, "O"], ["X", nil, nil], ["X", "O", nil]])
+	b3 = Board.new ([["O", "O", "O"], [nil, nil, nil], ["O", "O", nil]])
+	b4 = Board.new ([["O", "X", "X"], ["X", "O", nil], ["X", "O", "O"]])
+	b5 = Board.new ([["O", "X", "X"], ["X", "X", nil], ["X", nil, "O"]])
+
+	puts b1.won?
+	puts b1.inspect
+	puts b2.won?
+	puts b3.won?
+	puts b4.won?
+	puts b5.won?
+
+	puts b1.play(0, 1, "X")
+	puts b1.inspect
+	b1.play(0, 1, "O")
+	puts b1.inspect
 end
