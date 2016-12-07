@@ -13,14 +13,19 @@ class TicTacToe
 			end
 		end
 		puts "Player #{@board.won?} wins!"
+		#needs to account for draws
 	end
 
 	def turn(player)
 		puts @board.show
-		move = player.move
-		row = move[0].to_i
-		col = move[1].to_i
-		@board.play(row, col, player.token)
+		player_input = player.move
+		row = player_input[0].to_i
+		col = player_input[1].to_i
+		if @board.check_move(row, col)
+			@board.play(row, col, player.token)
+		else
+			self.turn(player)
+		end
 	end
 end
 

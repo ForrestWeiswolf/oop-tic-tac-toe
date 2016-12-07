@@ -7,6 +7,10 @@ class Board
 		@dim = @grid.length
 	end
 
+	def dim
+		@dim
+	end
+
 	def won?
 		result = false
 		lines = [[], []]
@@ -29,14 +33,21 @@ class Board
 	end
  
 	def play(x, y, token) 
-		# if x > @dim-1 | y > @dim-1 | x < 0 | y < 0
-		# 	return "That's not a space on the board."
-		# elsif @grid[x][y]
-		# 	return "That space is already filled."
-		# else
-			@grid[x][y] = token
-		# end
+		@grid[x][y] = token
 	end
+
+	def check_move(x, y)
+		if (x > @dim-1) | (y > @dim-1) | (x < 0) | (y < 0)
+		 	puts "That's not a space on the board."
+		 	return false
+		elsif @grid[x][y]
+		 	puts "That space is already filled."
+		 	return false
+		else
+			return true
+		end
+	end
+
 
 	private
 	def	are_all(list) 
@@ -50,21 +61,28 @@ end
 
 
 def board_tests
-	b1 = Board.new([], 4)
-	b2 = Board.new ([["X", nil, "O"], ["X", nil, nil], ["X", "O", nil]])
-	b3 = Board.new ([["O", "O", "O"], [nil, nil, nil], ["O", "O", nil]])
-	b4 = Board.new ([["O", "X", "X"], ["X", "O", nil], ["X", "O", "O"]])
-	b5 = Board.new ([["O", "X", "X"], ["X", "X", nil], ["X", nil, "O"]])
+	empty = Board.new([], 4)
+	x_col = Board.new ([["X", nil, "O"], ["X", nil, nil], ["X", "O", nil]])
+	o_row = Board.new ([["O", "O", "O"], [nil, nil, nil], ["O", "O", nil]])
+	o_rldiag = Board.new ([["O", "X", "X"], ["X", "O", nil], ["X", "O", "O"]])
+	x_lrdiag = Board.new ([["O", "X", "X"], ["X", "X", nil], ["X", nil, "O"]])
+	x_row_4x4 = Board.new ([["X", "X", "X", "X"], 
+							["X", "X", nil, nil], 
+							["X", nil, "O", "O"]])
 
-	puts b1.won?
-	puts b1.inspect
-	puts b2.won?
-	puts b3.won?
-	puts b4.won?
-	puts b5.won?
+	puts empty.inspect
 
-	puts b1.play(0, 1, "X")
-	puts b1.inspect
-	b1.play(0, 1, "O")
-	puts b1.inspect
+	puts empty.won?
+	puts x_col.won?
+	puts o_row.won?
+	puts o_rldiag.won?
+	puts x_lrdiag.won?
+	puts x_row_4x4.won?
+
+	puts empty.play(0, 1, "X")
+	puts empty.inspect
+	empty.play(0, 1, "O")
+	puts empty.inspect
 end
+
+#board_tests
