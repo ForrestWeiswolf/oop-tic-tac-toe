@@ -37,6 +37,7 @@ class Board
 	end
 
 	def check_move(x, y)
+		#not sure whether this should be in Boerd class or TicTacToe
 		if (x > @dim-1) | (y > @dim-1) | (x < 0) | (y < 0)
 		 	puts "That's not a space on the board."
 		 	return false
