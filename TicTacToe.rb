@@ -19,11 +19,8 @@ class TicTacToe
 	def turn(player)
 		puts @board.show
 		player_input = player.move
-		if player_input
-		row = player_input[0].to_i
-		col = player_input[1].to_i
-		if @board.check_move(row, col)
-			@board.play(row, col, player.token)
+		if player_input && @board.check_move(player_input[0], player_input[1])
+			@board.play(player_input[0], player_input[1], player.token)
 		else
 			self.turn(player)
 		end
