@@ -1,16 +1,14 @@
 class Player 
 	attr_reader :token
+
 	def initialize(t)
 		@token = t
 	end
-	
-	def move
-		puts "Where would you like to place a token, player #{@token}?"
-		move = parse_move(gets.chomp)
-		return move	
-		# Board.play will check if the move is valid
-	end
 
+	def to_s
+		"Player #{@token}"
+	end
+	
 #	private 
 	def parse_move(input)
 		#not sure whether it should be in Player class
@@ -36,6 +34,18 @@ class Player
 		end
 	end
 end
+
+class HumanPlayer < Player
+	def move
+		puts "Where would you like to place a token, player #{@token}?"
+		move = parse_move(gets.chomp)
+		return move	
+		# Board.play will check if the move is valid
+	end
+end
+
+#class AIPlayer
+
 
 def player_tests
 	p = Player.new("X")

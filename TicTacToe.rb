@@ -30,9 +30,9 @@ class TicTacToe
 end
 
 def game_tests
-	b = Board.new([["X", "Y", nil], ["X", "Y", nil], ["Y", "X", nil]])
-	player1 = Player.new("X")
-	player2 = Player.new("Y")
+	b = Board.new()
+	player1 = HumanPlayer.new("X")
+	player2 = HumanPlayer.new("Y")
 	game = TicTacToe.new([player1, player2], b)
 end
 
