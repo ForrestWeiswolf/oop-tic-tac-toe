@@ -1,14 +1,11 @@
 class Board
-	def initialize(grid=[], dim = 3)
-		@grid = grid
+	attr_reader :grid, :dim
+	def initialize(g=[], d = 3)
+		@grid = g
 		if @grid == []
-			dim.times {@grid.push(Array.new(dim))}
+			d.times {@grid.push(Array.new(d))}
 		end
 		@dim = @grid.length
-	end
-
-	def dim
-		@dim
 	end
 
 	def won?

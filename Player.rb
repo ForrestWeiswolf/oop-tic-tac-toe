@@ -1,11 +1,7 @@
 class Player 
-	def initialize(token)
-		@token = token
-	end
-
-	def token
-		#couldn't get attr_reader working
-		@token
+	attr_reader :token
+	def initialize(t)
+		@token = t
 	end
 	
 	def move
@@ -48,4 +44,7 @@ def player_tests
 	puts p.parse_move("c3").inspect
 	puts p.parse_move("idk").inspect
 	puts p.parse_move("12").inspect
+	puts p.token
 end
+
+player_tests
