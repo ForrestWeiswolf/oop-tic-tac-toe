@@ -8,7 +8,7 @@ class Board
 		@dim = @grid.length
 	end
 
-	def won?
+	def winner
 		result = false
 		lines = [[], []]
 		(0...@dim).each do |i|
@@ -17,8 +17,8 @@ class Board
 			lines[0].push @grid[i][i] #adding to diag starting at 0, 0
 			lines[1].push @grid[@dim-i-1][i] #adding to other diag
 		end
-		lines.each {|line| result = are_all(line) if are_all(line)} #did anyone win?
-		#result = grid.all? {|row| row.all? {|square| square}} ? "DRAW" : result
+		lines.each {|line| result = "Player #{are_all(line)} wins!" if are_all(line)} #did anyone win?
+		result = grid.all? {|row| row.all? {|square| square}} ? "The game is a draw." : result
 		return result
 	end
 
@@ -35,7 +35,7 @@ class Board
 	end
 
 	def check_move(x, y)
-		#not sure whether this should be in Boerd class or TicTacToe
+		#not sure whether this should be in Board class or TicTacToe
 		if (x > @dim-1) | (y > @dim-1) | (x < 0) | (y < 0)
 		 	puts "That's not a space on the board."
 		 	return false

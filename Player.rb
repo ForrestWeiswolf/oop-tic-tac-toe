@@ -46,5 +46,3 @@ def player_tests
 	puts p.parse_move("12").inspect
 	puts p.token
 end
-
-player_tests

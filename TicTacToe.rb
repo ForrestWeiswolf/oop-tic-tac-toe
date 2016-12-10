@@ -6,14 +6,16 @@ class TicTacToe
 		@board = board
 		@players = players
 
-		until @board.won? do
+		(@board.dim**2).times do
 			players.each do |player|
-				self.turn(player)
-				break if @board.won?
+				if @board.winner
+					break
+				else
+					self.turn(player)
+				end
 			end
 		end
-		puts "Player #{@board.won?} wins!"
-		#needs to account for draws
+		puts @board.winner
 	end
 
 	def turn(player)
@@ -28,9 +30,10 @@ class TicTacToe
 end
 
 def game_tests
+	b = Board.new([["X", "Y", nil], ["X", "Y", nil], ["Y", "X", nil]])
 	player1 = Player.new("X")
 	player2 = Player.new("Y")
-	game = TicTacToe.new([player1, player2])
+	game = TicTacToe.new([player1, player2], b)
 end
 
 game_tests
