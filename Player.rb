@@ -36,7 +36,8 @@ class Player
 end
 
 class HumanPlayer < Player
-	def move
+	def move(board)
+		puts board.show
 		puts "Where would you like to place a token, player #{@token}?"
 		move = parse_move(gets.chomp)
 		return move	
@@ -44,7 +45,9 @@ class HumanPlayer < Player
 	end
 end
 
-#class AIPlayer
+#class AIPlayer < Player
+#	def move
+
 
 
 def player_tests
@@ -56,3 +59,5 @@ def player_tests
 	puts p.parse_move("12").inspect
 	puts p.token
 end
+
+player_tests
