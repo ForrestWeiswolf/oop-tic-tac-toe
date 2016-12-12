@@ -46,8 +46,7 @@ class HumanPlayer < Player
 end
 
 #class AIPlayer < Player
-#	def move
-
+#	def move(board)
 
 
 def player_tests
@@ -60,4 +59,4 @@ def player_tests
 	puts p.token
 end
 
-player_tests
+#player_tests
