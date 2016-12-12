@@ -45,10 +45,6 @@ class HumanPlayer < Player
 	end
 end
 
-#class AIPlayer < Player
-#	def move(board)
-
-
 def player_tests
 	p = Player.new("X")
 	puts p.parse_move("A1").inspect

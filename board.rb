@@ -47,6 +47,13 @@ class Board
 		end
 	end
 
+	def each
+		@grid.each do |row|
+			row.each do |square|
+				yield(square)
+			end
+		end
+	end
 
 	private
 	def	are_all(list) 
@@ -71,17 +78,19 @@ def board_tests
 
 	puts empty.inspect
 
-	puts empty.won?
-	puts x_col.won?
-	puts o_row.won?
-	puts o_rldiag.won?
-	puts x_lrdiag.won?
-	puts x_row_4x4.won?
+	puts empty.winner
+	puts x_col.winner
+	puts o_row.winner
+	puts o_rldiag.winner
+	puts x_lrdiag.winner
+	puts x_row_4x4.winner
 
 	puts empty.play(0, 1, "X")
 	puts empty.inspect
 	empty.play(0, 1, "O")
 	puts empty.inspect
+
+	o_row.each{|s| puts s.inspect}
 end
 
 #board_tests

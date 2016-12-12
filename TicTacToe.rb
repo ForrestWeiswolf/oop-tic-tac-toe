@@ -18,6 +18,7 @@ class TicTacToe
 		puts @board.winner
 	end
 
+	private
 	def turn(player)
 		player_input = player.move(@board)
 		if player_input && @board.check_move(player_input[0], player_input[1])
