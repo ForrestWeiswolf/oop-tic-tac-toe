@@ -47,14 +47,6 @@ class Board
 		end
 	end
 
-	def each
-		@grid.each do |row|
-			row.each do |square|
-				yield(square)
-			end
-		end
-	end
-
 	private
 	def	are_all(list) 
 		if list.all? {|item| item == list[0]}
