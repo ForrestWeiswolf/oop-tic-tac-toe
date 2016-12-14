@@ -45,6 +45,25 @@ class HumanPlayer < Player
 	end
 end
 
+# class AIPlayer < Player
+# 	def move(board)
+# 		dim = board.dim
+# 		(0...dim).each do |row|
+# 			(0...dim).each do |col|
+# 				imaginary = board
+# 				imaginary.play(row, col, self.token)
+# 				return [row, col] if imaginary.winner == @token
+# 			end
+# 		end
+# 	end
+
+# 	private 
+# 	#def evaluate_move(x, y, board)
+		
+# 	#end
+# end
+
+
 def player_tests
 	p = Player.new("X")
 	puts p.parse_move("A1").inspect
@@ -55,4 +74,13 @@ def player_tests
 	puts p.token
 end
 
-#player_tests
+# def ai_tests
+# 	require_relative 'Board'
+# 	ai = AIPlayer.new("O")
+# 	b = Board.new([["O", "O", nil], 
+# 					["X", "X", nil],
+# 					["X", nil, nil]])
+# 	puts ai.move(b).inspect
+# end
+
+#ai_tests

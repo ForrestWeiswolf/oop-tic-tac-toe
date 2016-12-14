@@ -15,16 +15,26 @@ class TicTacToe
 				end
 			end
 		end
-		puts @board.winner
+		declare_winner(@board)
 	end
 
-	private
+	#private
 	def turn(player)
 		player_input = player.move(@board)
 		if player_input && @board.check_move(player_input[0], player_input[1])
 			@board.play(player_input[0], player_input[1], player.token)
 		else
 			self.turn(player)
+		end
+	end
+
+	def declare_winner(board)
+		if board.winner == "DRAW"
+			puts "The game is a draw."
+		elsif board.winner
+			puts "Player #{board.winner} wins!"
+		else
+			puts "The game's not over yet."
 		end
 	end
 end

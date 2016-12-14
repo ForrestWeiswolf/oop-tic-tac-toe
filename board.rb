@@ -17,8 +17,8 @@ class Board
 			lines[0].push @grid[i][i] #adding to diag starting at 0, 0
 			lines[1].push @grid[@dim-i-1][i] #adding to other diag
 		end
-		lines.each {|line| result = "Player #{are_all(line)} wins!" if are_all(line)} #did anyone win?
-		result = grid.all? {|row| row.all? {|square| square}} ? "The game is a draw." : result
+		lines.each {|line| result = are_all(line) if are_all(line)} #did anyone win?
+		result = grid.all? {|row| row.all? {|square| square}} ? "DRAW" : result
 		return result
 	end
 
@@ -66,7 +66,8 @@ def board_tests
 	x_lrdiag = Board.new ([["O", "X", "X"], ["X", "X", nil], ["X", nil, "O"]])
 	x_row_4x4 = Board.new ([["X", "X", "X", "X"], 
 							["X", "X", nil, nil], 
-							["X", nil, "O", "O"]])
+							["X", nil, "O", "O"], 
+							[nil, nil, nil, nil]])
 
 	puts empty.inspect
 
