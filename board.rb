@@ -30,10 +30,19 @@ class Board
 		return result
 	end
  
-	def play(x, y, token) 
+	def play(x, y, token)
 		@grid[x][y] = token
 	end
 
+	def clone
+		new_grid = []
+		@grid.each do |row|
+			new_grid << row.clone
+		end
+		return Board.new(new_grid)
+	end
+
+	private
 	def check_move(x, y)
 		#not sure whether this should be in Board class or TicTacToe
 		if (x > @dim-1) | (y > @dim-1) | (x < 0) | (y < 0)
@@ -47,7 +56,6 @@ class Board
 		end
 	end
 
-	private
 	def	are_all(list) 
 		if list.all? {|item| item == list[0]}
 			list[0] 

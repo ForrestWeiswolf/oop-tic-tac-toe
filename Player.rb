@@ -45,23 +45,24 @@ class HumanPlayer < Player
 	end
 end
 
-# class AIPlayer < Player
-# 	def move(board)
-# 		dim = board.dim
-# 		(0...dim).each do |row|
-# 			(0...dim).each do |col|
-# 				imaginary = board
-# 				imaginary.play(row, col, self.token)
-# 				return [row, col] if imaginary.winner == @token
-# 			end
-# 		end
-# 	end
-
-# 	private 
-# 	#def evaluate_move(x, y, board)
-		
-# 	#end
-# end
+class AIPlayer < Player
+	def move(board)
+		dim = board.dim
+		imaginary = nil
+		(0...dim).each do |row|
+			(0...dim).each do |col|
+				return [row, col] if self.evaluate_move(row, col, board)
+			end
+		end
+		return false #if no winning move was found
+	end
+ 
+	def evaluate_move(x, y, board)
+		imaginary = board.clone
+		imaginary.play(x, y, @token)
+		return imaginary.winner == @token
+	end
+end
 
 
 def player_tests
@@ -74,13 +75,22 @@ def player_tests
 	puts p.token
 end
 
-# def ai_tests
-# 	require_relative 'Board'
-# 	ai = AIPlayer.new("O")
-# 	b = Board.new([["O", "O", nil], 
-# 					["X", "X", nil],
-# 					["X", nil, nil]])
-# 	puts ai.move(b).inspect
-# end
+def ai_tests
+	require_relative 'Board'
+	ai = AIPlayer.new("O")
+	b1 = Board.new([["O", "O", nil], 
+					["X", "X", nil],
+					["X", nil, nil]])
+	b2 = Board.new([[nil, "O", "X"], 
+					["O", "X", "X"],
+					["O", "X", nil]])
+	b3 = Board.new([[nil, "O", nil], 
+					[nil, nil, "X"],
+					["O", "X", nil]])
 
-#ai_tests
+	puts ai.move(b1).inspect
+	puts ai.move(b2).inspect
+	puts ai.move(b3).inspect
+end
+
+ai_tests
