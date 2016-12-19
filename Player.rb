@@ -46,7 +46,7 @@ class HumanPlayer < Player
 end
 
 class AIPlayer < Player
-	def move(board)
+	def move(board, opponents = ["X", "O"])
 		dim = board.dim
 		imaginary = nil
 		(0...dim).each do |row|

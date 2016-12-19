@@ -5,6 +5,7 @@ class TicTacToe
 	def initialize(players, board = Board.new)
 		@board = board
 		@players = players
+		@tokens = players.each { |p| p.token }
 
 		(@board.dim**2).times do
 			players.each do |player|
@@ -20,7 +21,7 @@ class TicTacToe
 
 	#private
 	def turn(player)
-		player_input = player.move(@board)
+		player_input = player.move(@board, @tokens)
 		if player_input && @board.check_move(player_input[0], player_input[1])
 			@board.play(player_input[0], player_input[1], player.token)
 		else
