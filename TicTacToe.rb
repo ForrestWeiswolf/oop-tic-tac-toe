@@ -25,6 +25,7 @@ class TicTacToe
 		if player_input && @board.check_move(player_input[0], player_input[1])
 			@board.play(player_input[0], player_input[1], player.token)
 		else
+			puts @board.check_move(player_input[0], player_input[1])
 			self.turn(player)
 		end
 	end

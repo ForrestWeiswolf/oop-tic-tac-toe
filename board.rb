@@ -42,15 +42,12 @@ class Board
 		return Board.new(new_grid)
 	end
 
-	private
 	def check_move(x, y)
-		#not sure whether this should be in Board class or TicTacToe
+		#not sure whether this should be in Board class
 		if (x > @dim-1) | (y > @dim-1) | (x < 0) | (y < 0)
-		 	puts "That's not a space on the board."
-		 	return false
+		 	return "That's not a space on the board."
 		elsif @grid[x][y]
-		 	puts "That space is already filled."
-		 	return false
+		 	return "That space is already filled."
 		else
 			return true
 		end

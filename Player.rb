@@ -1,8 +1,9 @@
 class Player 
 	attr_reader :token
 
-	def initialize(t)
-		@token = t
+	def initialize(board, token = "O")
+		@board = board
+		@token = token
 	end
 
 	def to_s
@@ -36,31 +37,48 @@ class Player
 end
 
 class HumanPlayer < Player
-	def move(board)
-		puts board.show
+	def move()
+		puts @board.show
 		puts "Where would you like to place a token, player #{@token}?"
 		move = parse_move(gets.chomp)
 		return move	
-		# Board.play will check if the move is valid
 	end
 end
 
 class AIPlayer < Player
-	def move(board, opponents = ["X", "O"])
-		dim = board.dim
-		imaginary = nil
-		(0...dim).each do |row|
-			(0...dim).each do |col|
-				return [row, col] if self.evaluate_move(row, col, board)
+	def move(opponents = ["X", "O"])
+		opponents.delete(self.token)
+		rank = 0
+		possible_moves = []
+		result = [0, 0]
+
+		(0...@board.dim).each do |row|
+			(0...@board.dim).each do |col|
+				possible_moves.push([row, col]) if @board.check_move(row, col)
 			end
 		end
-		return false #if no winning move was found
+
+		possible_moves.each do |option|
+			if self.evaluate_move(option, opponents) > rank
+				result = option
+				rank = self.evaluate_move(option, opponents)
+			end
+		end
+		return result
+	end
+
+	def evaluate_move(move, opponents)
+		return 5 if winning_move?(move, self.token)
+		opponents.each do |opponent|
+			return 4 if winning_move?(move, opponent)
+		end
+		return 3
 	end
  
-	def evaluate_move(x, y, board)
-		imaginary = board.clone
-		imaginary.play(x, y, @token)
-		return imaginary.winner == @token
+	def winning_move?(move, players_token)
+		imaginary = @board.clone
+		imaginary.play(move[0], move[1], players_token)
+		return imaginary.winner == players_token
 	end
 end
 
@@ -77,20 +95,25 @@ end
 
 def ai_tests
 	require_relative 'Board'
-	ai = AIPlayer.new("O")
 	b1 = Board.new([["O", "O", nil], 
 					["X", "X", nil],
 					["X", nil, nil]])
+	ai1 = AIPlayer.new(b1)
 	b2 = Board.new([[nil, "O", "X"], 
 					["O", "X", "X"],
 					["O", "X", nil]])
+	ai2 = AIPlayer.new(b2)
 	b3 = Board.new([[nil, "O", nil], 
-					[nil, nil, "X"],
+					["X", nil, "X"],
 					["O", "X", nil]])
+	ai3 = AIPlayer.new(b3)
+	b4 = Board.new()
+	ai4 = AIPlayer.new(b4)
 
-	puts ai.move(b1).inspect
-	puts ai.move(b2).inspect
-	puts ai.move(b3).inspect
+	puts ai1.move().inspect
+	puts ai2.move().inspect
+	puts ai3.move().inspect
+	puts ai4.move().inspect
 end
 
 ai_tests
