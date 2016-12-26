@@ -1,18 +1,25 @@
 class Player 
 	attr_reader :token
 
-	def initialize(board, token = "O")
-		@board = board
+	def initialize(token = "O")
 		@token = token
 	end
 
 	def to_s
 		"Player #{@token}"
 	end
-	
-#	private 
+end
+
+class HumanPlayer < Player
+	def move(board, opponents = ["X", "O"])
+		puts board.show
+		puts "Where would you like to place a token, player #{@token}?"
+		move = parse_move(gets.chomp)
+		return move	
+	end
+
+	#	private 
 	def parse_move(input)
-		#not sure whether it should be in Player class
 		begin
 			x = input[(/^([A-Z]|[a-z])/)]
 			y = input[(/((\d)+)$/)]
@@ -29,54 +36,49 @@ class Player
 			puts "Please input a move consisting of "\
 			"the letter of the row you want to play in and the "\
 			"number of the column. For example, A2"
-			return false
+			return self.move
 		else
 			return [x, y]
 		end
 	end
 end
 
-class HumanPlayer < Player
-	def move()
-		puts @board.show
-		puts "Where would you like to place a token, player #{@token}?"
-		move = parse_move(gets.chomp)
-		return move	
-	end
-end
-
 class AIPlayer < Player
-	def move(opponents = ["X", "O"])
+	def move(board, opponents = ["X", "O"])
 		opponents.delete(self.token)
 		rank = 0
 		possible_moves = []
 		result = [0, 0]
 
-		(0...@board.dim).each do |row|
-			(0...@board.dim).each do |col|
-				possible_moves.push([row, col]) if @board.check_move(row, col)
+		(0...board.dim).each do |row|
+			(0...board.dim).each do |col|
+				possible_moves.push([row, col]) unless board.invalid_move(row, col)
 			end
 		end
 
 		possible_moves.each do |option|
-			if self.evaluate_move(option, opponents) > rank
+			if self.evaluate_move(board, option, opponents) > rank
 				result = option
-				rank = self.evaluate_move(option, opponents)
+				rank = self.evaluate_move(board, option, opponents)
 			end
 		end
+
 		return result
 	end
 
-	def evaluate_move(move, opponents)
-		return 5 if winning_move?(move, self.token)
+	def evaluate_move(board, move, opponents)
+		return 5 if winning_move?(board, move, self.token)
 		opponents.each do |opponent|
-			return 4 if winning_move?(move, opponent)
+			if winning_move?(board, move, opponent)
+				return 4
+			end
 		end
-		return 3
+
+		return 1
 	end
  
-	def winning_move?(move, players_token)
-		imaginary = @board.clone
+	def winning_move?(board, move, players_token)
+		imaginary = board.clone
 		imaginary.play(move[0], move[1], players_token)
 		return imaginary.winner == players_token
 	end
@@ -98,22 +100,20 @@ def ai_tests
 	b1 = Board.new([["O", "O", nil], 
 					["X", "X", nil],
 					["X", nil, nil]])
-	ai1 = AIPlayer.new(b1)
 	b2 = Board.new([[nil, "O", "X"], 
 					["O", "X", "X"],
 					["O", "X", nil]])
-	ai2 = AIPlayer.new(b2)
-	b3 = Board.new([[nil, "O", nil], 
-					["X", nil, "X"],
-					["O", "X", nil]])
-	ai3 = AIPlayer.new(b3)
+	b3 = Board.new([["X", "O", nil],
+					["X", nil, nil],
+					[nil, nil, nil]])
 	b4 = Board.new()
-	ai4 = AIPlayer.new(b4)
 
-	puts ai1.move().inspect
-	puts ai2.move().inspect
-	puts ai3.move().inspect
-	puts ai4.move().inspect
+	ai = AIPlayer.new()
+
+	puts ai.move(b1).inspect
+	puts ai.move(b2).inspect
+	puts ai.move(b3).inspect
+	puts ai.move(b4).inspect
 end
 
-ai_tests
+#ai_tests
