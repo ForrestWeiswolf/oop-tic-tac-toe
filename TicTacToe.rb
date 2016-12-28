@@ -25,19 +25,23 @@ class TicTacToe
 		unless @board.invalid_move(player_input[0], player_input[1])
 			@board.play(player_input[0], player_input[1], player.token)
 		else
-			puts @board.invalid_move(player_input[0], player_input[1])
+			announce(@board.invalid_move(player_input[0], player_input[1]))
 			self.turn(player)
 		end
 	end
 
 	def declare_winner(board)
 		if board.winner == "DRAW"
-			puts "The game is a draw."
+			announce("The game is a draw.")
 		elsif board.winner
-			puts "Player #{board.winner} wins!"
+			announce("Player #{board.winner} wins!")
 		else
-			puts "The game's not over yet."
+			announce("The game's not over yet.")
 		end
+	end
+
+	def announce(str)
+		puts str if @players.any? { |p| p.class == HumanPlayer}
 	end
 end
 

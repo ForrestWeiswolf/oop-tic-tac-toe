@@ -67,11 +67,20 @@ class AIPlayer < Player
 	end
 
 	def evaluate_move(board, move, opponents)
-		return 5 if winning_move?(board, move, self.token)
+		return 6 if winning_move?(board, move, self.token) #take winning moves
+
 		opponents.each do |opponent|
 			if winning_move?(board, move, opponent)
-				return 4
+				return 5
 			end
+		end #block opponents
+
+		#create two (n-1)-in-a-rows if possible
+		#return 4
+		#not implememented yet
+
+		if move[0] == move[1] && move[0] == (board.dim/2) #center square
+			return 3
 		end
 
 		return 1
