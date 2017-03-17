@@ -30,8 +30,8 @@ class Board
 		return result
 	end
  
-	def play(x, y, token)
-		@grid[x][y] = token
+	def play(row, col, token)
+		@grid[row][col] = token
 	end
 
 	def clone
