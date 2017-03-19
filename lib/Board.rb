@@ -1,8 +1,8 @@
 class Board
 	attr_reader :grid, :dim
-	def initialize(g=[], d = 3)
+	def initialize(g=[], d = 3) #should be in other order
 		@grid = g
-		if @grid == []
+		if @grid == [] #which would make this unneccessary
 			d.times {@grid.push(Array.new(d))}
 		end
 		@dim = @grid.length
@@ -76,9 +76,6 @@ def board_tests
 
 	puts empty.inspect
 
-	puts empty.winner
-	puts x_col.winner
-	puts o_row.winner
 	puts o_rldiag.winner
 	puts x_lrdiag.winner
 	puts x_row_4x4.winner
