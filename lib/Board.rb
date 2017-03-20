@@ -61,31 +61,3 @@ class Board
 		end
 	end
 end
-
-
-def board_tests
-	empty = Board.new([], 4)
-	x_col = Board.new ([["X", nil, "O"], ["X", nil, nil], ["X", "O", nil]])
-	o_row = Board.new ([["O", "O", "O"], [nil, nil, nil], ["O", "O", nil]])
-	o_rldiag = Board.new ([["O", "X", "X"], ["X", "O", nil], ["X", "O", "O"]])
-	x_lrdiag = Board.new ([["O", "X", "X"], ["X", "X", nil], ["X", nil, "O"]])
-	x_row_4x4 = Board.new ([["X", "X", "X", "X"], 
-							["X", "X", nil, nil], 
-							["X", nil, "O", "O"], 
-							[nil, nil, nil, nil]])
-
-	puts empty.inspect
-
-	puts o_rldiag.winner
-	puts x_lrdiag.winner
-	puts x_row_4x4.winner
-
-	puts empty.play(0, 1, "X")
-	puts empty.inspect
-	empty.play(0, 1, "O")
-	puts empty.inspect
-
-	o_row.each{|s| puts s.inspect}
-end
-
-#board_tests

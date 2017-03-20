@@ -33,14 +33,6 @@ describe Board do
 		expect(new_board).to respond_to(:dim)
 	end
 
-	it "has a two dimensional grid" do
-		expect(new_board.grid[0].class).to eql(Array)
-	end
-
-	it "has a square grid" do
-		expect(new_board.grid.size).to eql(new_board.grid[0].size)
-	end
-
 	describe ".new" do
 		context "when not passed arguments" do
 			it "defaults to being empty when initialized" do
@@ -51,16 +43,6 @@ describe Board do
 				expect(new_board.grid.size).to eql(3)
 			end
 		end
-
-		context "when passed an array as the first argument" do
-			it "has that array as it's grid" do
-				grid = [[nil, nil], [nil, nil]]
-				board = Board.new(grid)
-				expect(board.grid).to eql(grid)
-			end
-		end
-		# context "when passed an int as the second argument" do
-		# end
 	end
 
 	describe ".winner" do
